@@ -1,0 +1,7 @@
+{
+  "name": "IonicBook",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
