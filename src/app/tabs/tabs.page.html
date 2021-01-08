@@ -1,0 +1,20 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="feed">
+      <ion-icon class="icons" name="home-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="product">
+      <ion-icon class="icons" name="storefront-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="upload">
+      <ion-icon class="icons1" name="add-circle-outline"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="notification" (click)="trigger()">
+      <ion-icon class="icons" name="notifications-outline"></ion-icon>
+      <ion-badge style="font-size: 12px;" *ngIf="count>0" color="danger">{{count}}</ion-badge>
+    </ion-tab-button>
+    <ion-tab-button tab="profile">
+      <ion-icon class="icons" name="person-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

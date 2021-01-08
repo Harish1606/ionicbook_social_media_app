@@ -1,0 +1,36 @@
+.icon{
+    display: inline-block;
+    font-size: 30px;
+    vertical-align: middle;
+}
+
+.icon1{
+    font-size: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.text{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 25px;
+    margin-left: 10px;
+}
+
+.item-entry{
+    padding: 10px 0;
+}
+
+.item-name{
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+    font-family: Arial,sans-serif;
+    color: var(--ion-color-dark-tint);
+}
+
+.price{
+    color: var(--ion-color-tertiary-tint);
+    font-weight: 500;
+    font-size: 16px;
+}

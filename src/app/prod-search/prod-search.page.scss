@@ -1,0 +1,15 @@
+.icon{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 30px;
+}
+
+ion-skeleton-text{
+    background-color:lightgray;
+}
+
+.price{
+    color: var(--ion-color-tertiary-tint);
+    font-weight: 500;
+    font-size: 16px;
+}

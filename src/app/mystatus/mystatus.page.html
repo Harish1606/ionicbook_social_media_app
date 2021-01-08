@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            My status
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-progress-bar [value]="v" color="success"></ion-progress-bar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="busy"></app-loading>
+  <div *ngIf="!busy">
+    <ion-img src="https://ucarecdn.com/{{status?.postid}}/-/preview/"></ion-img>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <div (click)="goToView()" style="text-align: center;">
+      <ion-icon name="eye" color="light" style="font-size: 30px;vertical-align: middle;display: inline-block;"></ion-icon>
+    </div>  
+  </ion-toolbar>
+</ion-footer>

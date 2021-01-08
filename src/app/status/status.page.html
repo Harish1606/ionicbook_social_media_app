@@ -1,0 +1,53 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<ion-content>
+  
+  <input type="file" #fileBtn class="filebtn" (change)="uploadPic($event)">
+
+  <ion-list *ngIf="profilePic.length>0">
+    <ion-item>
+      <ion-avatar slot="start" class="active" (click)="goToMystatus()">
+        <img src="https://ucarecdn.com/{{profilePic}}/-/scale_crop/200x200/center/">
+      </ion-avatar>
+      <ion-label color="dark" (click)="goToMystatus()">
+        <h2 style="font-size: 20px;">
+          My status
+        </h2>
+        <p style="font-size: 13px;margin-top: 5px;">{{time | date:'short'}}</p>
+      </ion-label>
+      <ion-label class="ion-text-right" slot="end">
+        <div (click)="presentActionSheet()">
+          <ion-icon color="dark" style="font-size: 20px;" name="ellipsis-vertical"></ion-icon>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-text *ngIf="otherStatus.length>0">
+    <p style="font-size: 18px;margin-left: 10px;">Others status</p>
+  </ion-text>
+  <ion-list>
+    <ion-item *ngFor="let status of otherStatus" (click)="goToOtherStatus(status.uid)">
+      <ion-avatar slot="start" class="active">
+        <img src="https://ucarecdn.com/{{status.postid}}/-/scale_crop/200x200/center/">
+      </ion-avatar>
+      <ion-label color="dark">
+        <h2>
+          <b style="font-size: 17px;">{{status.name}}</b>
+        </h2>
+      </ion-label>
+      <ion-label class="ion-text-right" color="dark" slot="end">
+        <p style="font-size: 13px;margin-top: 5px;">{{status.date | date:'short'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button *ngIf="profilePic.length==0" color="primary" (click)="updateProfilePic()">
+    <ion-icon name="image-outline" style="font-size: 28px;"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

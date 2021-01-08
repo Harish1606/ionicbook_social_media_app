@@ -1,0 +1,25 @@
+.camera{
+    width: 400px;
+    height: 300px;
+    margin: 0 auto;
+    background: black;
+    display: none;
+}
+
+.filebtn{
+    opacity:0;
+    position: absolute;
+    top: -100em;
+    left: -100em;
+}
+
+.center{
+    height: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active{
+    border:2px solid red;
+}

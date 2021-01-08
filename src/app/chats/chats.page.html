@@ -1,0 +1,62 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<ion-content>
+  <ion-searchbar #search (ionChange)="searchUsers($event)"></ion-searchbar>
+  <div *ngIf="busy">
+  <ion-list>
+    <ion-item *ngFor="let user of searchedItem">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2>
+          <ion-skeleton-text animated style="width:30%;"></ion-skeleton-text>
+        </h2>
+        <h2>
+          <ion-skeleton-text animated style="width:70%;"></ion-skeleton-text>
+        </h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  </div>
+  
+  <div *ngIf="!busy">
+  <ion-list>
+    <ion-item *ngFor="let user of searchedItem" (click)="goTo(user.uid)">
+      <ion-avatar slot="start">
+        <img src="https://ucarecdn.com/{{user.profilePic}}/-/scale_crop/200x200/center/">
+      </ion-avatar>
+      <ion-label>
+        <h2>
+          <b>{{user.username}}</b>
+        </h2>
+        <h2 *ngIf="user.visible==false && user.highlight!=' '">
+          <b>{{user.highlight}}</b>
+        </h2>
+        <p *ngIf="user.visible==true && user.highlight!=' '">
+          {{user.highlight}}
+        </p>
+        <h2 *ngIf="user.visible==false && user.highlight==' '">
+          <b>shared a post</b>
+        </h2>
+        <p *ngIf="user.visible==true && user.highlight==' '">
+          shared a post
+        </p>
+      </ion-label>
+      <ion-label class="ion-text-right" color="dark" slot="end">
+        <p style="font-size: 13px;">{{user.time | date:'short'}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  </div>
+</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button color="primary" (click)="goToSearch()">
+    <ion-icon name="chatbox-ellipses-outline" style="font-size: 28px;"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,209 @@
+<ion-header>
+  <ion-toolbar [color]="selectedcolor">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;margin-top: 6px;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="1.5" style="text-align: center;">
+          <ion-avatar style="height: 40px; width: 40px;vertical-align: middle; display: inline-block;">
+            <img src="https://ucarecdn.com/{{o_user?.profilePic}}/-/scale_crop/200x200/center/">
+          </ion-avatar>    
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            {{o_user?.username}}
+          </ion-text>
+        </ion-col>
+        <ion-col size="2.5">
+          <ion-button (click)="changeTheme()" [disabled]="check" fill="clear">
+            <ion-icon color="light" slot="icon-only" style="font-size: 30px; vertical-align: middle;display: inline-block;margin-top: 5px;text-align: end;" name="color-palette-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-select #userList (ionChange)='setTheme($event)' hidden="true" interface="action-sheet" [value]="selectedcolor">
+    <ion-select-option *ngFor="let c of colors" [value]="c">{{c}}</ion-select-option>
+  </ion-select>
+</ion-header>
+
+<ion-content *ngIf="selectedcolor=='primary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='secondary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message1':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message1':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='tertiary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message2':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message2':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+<ion-content *ngIf="selectedcolor=='success'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message3':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message3':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='danger'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message4':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message4':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='warning'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message5':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message5':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='medium'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat.msg!=' '" size="9" class="message" [offset]="chat.uid==uid?3:0" [ngClass]="{'my-message6':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="chat.msg==' '" size="5" class="message" [offset]="chat.uid==uid?7:0" [ngClass]="{'my-message6':chat.uid==uid,'other-message':chat.uid!=uid}">
+        <ion-img style="height: 100px; width: 100px;" src="https://ucarecdn.com/{{chat.postid}}/-/preview/{{chat.effect}}" (click)="goToPost(chat.postid)"></ion-img>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==true" style="font-size: 25px; color:aqua" name="checkmark-done-outline"></ion-icon>
+          <ion-icon *ngIf="chat.uid==uid && o_chats[i]?.visible==false" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="9.5">
+        <ion-textarea autoGrow="true" class="message-input" rows="1" maxLength="500" [(ngModel)]="textMsg" placeholder="Type a message...">
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2.5" style="text-align: center;">
+        <ion-button expand="block" fill="clear" [color]="selectedcolor" [disabled]="textMsg.trim().length==0" class="msg-btn" (click)="send()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

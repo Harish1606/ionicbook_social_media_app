@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;">
+          <ion-text color="light" class="text">
+            Post
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="!post"></app-loading>
+
+  <ion-card *ngIf="post">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+              <ion-avatar style="height: 40px;width: 40px;" (click)="goToProfile(profile?.uid)">
+                <img src="https://ucarecdn.com/{{profile?.profilePic}}/-/scale_crop/200x200/center/">
+              </ion-avatar>        
+          </ion-col>
+          <ion-col size="9">
+            <ion-card-title (click)="goToProfile(profile?.uid)">
+              <b>{{profile?.username}}</b>
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{post.date | date:'short'}}
+            </ion-card-subtitle>
+          </ion-col>
+          <ion-col size="1" *ngIf="check">
+            <div (click)="presentActionSheet()">
+              <ion-icon color="dark" style="font-size: 22px;text-align: end;margin-top: 10px;" name="ellipsis-vertical"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-img src="https://ucarecdn.com/{{postId}}/-/preview/{{effect}}"></ion-img>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2" style="text-align:start;">
+            <div (click)="toggleHeart()">
+              <ion-icon style="font-size: 27px;" [color]="Color" [name]="heartType"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col size="2" style="text-align:start;">
+            <div (click)="goToComment()">
+              <ion-icon class="icon" color="dark" name="chatbubble-outline"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col size="2" style="text-align: start;">
+            <div (click)="share()">
+              <ion-icon class="icon" color="dark" name="paper-plane-outline"></ion-icon>
+            </div>
+            <ion-select #userList (ionChange)='setUser($event)' hidden="true">
+              <ion-select-option *ngFor="let u of shareList" [value]="u.uid">{{u.username}}</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size="4">
+          </ion-col>
+          <ion-col style="text-align:end;">
+            <div (click)="savePost()">
+              <ion-icon class="icon" color="dark" [name]="saveType"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-text color="dark"><h2 *ngIf="post.likes.length==1" (click)="goToLike()">{{post.likes.length}} like</h2></ion-text>
+      <ion-text color="dark"><h2 *ngIf="post.likes.length>1" (click)="goToLike()">{{post.likes.length}} likes</h2></ion-text>
+      <ion-text color="dark"><h2 style="font-size: 23px;">{{profile?.username}} <span style="font-size: 15px;">{{post.desc}}</span></h2></ion-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

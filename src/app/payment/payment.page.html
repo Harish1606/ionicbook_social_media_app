@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <br>
+  <br>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title><b>Payment Method</b></ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-radio-group value="net">
+        <ion-item>
+          <ion-label>Net Banking</ion-label>
+          <ion-radio slot="end" color="primary" value="net"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Credit/Debit Card</ion-label>
+          <ion-radio slot="end" color="secondary"  value="card"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Cash on Delivery</ion-label>
+          <ion-radio slot="end" color="warning" value="cash"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1">
+              <ion-icon name="information-circle-outline" style="font-size: 27px;margin-top: 5px;" color="medium"></ion-icon>
+            </ion-col>
+            <ion-col size="6">
+              <h4 style="margin-top: 5px;">&nbsp;Total: <b class="price">{{total | currency:"INR"}}</b></h4>
+            </ion-col>
+            <ion-col size="5">
+              <ion-button color="success" shape="round" [disabled]="name.trim().length==0 || email.trim().length==0 || address.trim().length==0 || number.trim().length==0" (click)="finishOrder()">CONFIRM<ion-icon  name="checkmark-outline" style="font-size: 20px;"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

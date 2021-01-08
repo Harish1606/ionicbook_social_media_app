@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            Checkout
+          </ion-text>
+        </ion-col>
+        <ion-col size="4" style="text-align: end;">
+          <div (click)="goToHome()">
+            <ion-icon name="home" color="light" style="font-size: 30px;vertical-align: middle;display: inline-block;"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-segment value="delivery">
+    <ion-segment-button value="delivery" (click)="goToDelivery()" layout="icon-start">
+      <ion-badge color="primary">1</ion-badge>
+      <ion-label color="dark">Delivery</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="payment" (click)="goToPayment()" layout="icon-start">
+      <ion-badge color="primary">2</ion-badge>
+      <ion-label color="dark">Payment</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-router-outlet></ion-router-outlet>

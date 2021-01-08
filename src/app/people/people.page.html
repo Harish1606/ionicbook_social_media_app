@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="11" style="text-align: start;">
+          <ion-text color="light" class="text">
+            {{profile?.username}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="!profile"></app-loading>
+  <div id="profile-info" *ngIf="profile?.username">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="user-image">
+          <ion-avatar style="width: auto; height: 100%;">
+            <ion-img src="https://ucarecdn.com/{{profile.profilePic}}/-/scale_crop/200x200/center/"></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <h2 *ngIf="profile.posts">{{profile.posts.length}}</h2>
+          <h2 *ngIf="!profile.posts">0</h2>
+          Posts 
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <h2>{{profile.followers.length}}</h2>
+          Followers
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <h2>{{profile.following.length}}</h2>
+          Following
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>{{profile?.username}}</h2>
+          <p>{{profile?.bio}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button color="primary" expand="block" fill="outline" (click)="toggle()">{{follow}}</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button color="primary" expand="block" fill="outline" (click)="goToChat()">Message</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-list>
+    <ion-item-divider></ion-item-divider>
+  </ion-list>
+
+  <ion-grid *ngIf="profile">
+    <ion-row>
+      <ion-col *ngFor="let p of profile.posts" size="4">
+        <img (click)="goTo(p)" src="https://ucarecdn.com/{{p}}/-/scale_crop/200x200/center/">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

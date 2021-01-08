@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;">
+          <ion-text color="light" class="text">
+            Weather
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">
+            Enter valid place to search
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="place"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" color="primary" fill="outline" [disabled]="place.trim().length==0" (click)="searchWeather()">Search</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid *ngIf="weatherInfo">
+    <ion-row *ngIf="weatherInfo.weather[0]">
+      <ion-col size="12" class="message" [offset]="0" [ngClass]="{'my-message':weatherInfo,'other-message':weatherInfo}">
+        <div style="text-align: center;" *ngIf="weatherInfo.weather[0].main=='Rain' || weatherInfo.weather[0].main=='Thunderstorm'">
+          <ion-icon style="font-size: 50px;" name="thunderstorm" color="dark"></ion-icon>
+          <h2>{{weatherInfo.weather[0].description}}</h2>
+        </div> 
+        <div style="text-align: center;" *ngIf="weatherInfo.weather[0].main=='Clouds' || weatherInfo.weather[0].main=='Smoke'">
+          <ion-icon style="font-size: 50px;" name="cloudy" color="dark"></ion-icon>
+          <h2>{{weatherInfo.weather[0].description}}</h2>
+        </div> 
+        <div style="text-align: center;" *ngIf="weatherInfo.weather[0].main=='Clear'">
+          <ion-icon style="font-size: 50px;" name="sunny" color="warning"></ion-icon>
+          <h2>{{weatherInfo.weather[0].description}}</h2>
+        </div> 
+        <div style="text-align: center;" *ngIf="weatherInfo.weather[0].main=='Haze' || weatherInfo.weather[0].main=='Fog' || weatherInfo.weather[0].main=='Mist'">
+          <ion-icon style="font-size: 50px;" name="snow" color="light"></ion-icon>
+          <h2>{{weatherInfo.weather[0].description}}</h2>
+        </div> 
+        <div style="text-align: center;" *ngIf="weatherInfo.weather[0].main=='Drizzle'">
+          <ion-icon style="font-size: 50px;" name="rainy" color="dark"></ion-icon>
+          <h2>{{weatherInfo.weather[0].description}}</h2>
+        </div> 
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" class="message" [offset]="0" [ngClass]="{'my-message':weatherInfo,'other-message':weatherInfo}">
+        <div style="font-size: 20px; text-align: center;">
+          Location details
+        </div> 
+        <br>
+        <div *ngIf="weatherInfo.name">
+          City: {{weatherInfo.name}}
+        </div>
+        <div *ngIf="weatherInfo.sys.country">
+          Country: {{weatherInfo.sys.country}}
+        </div>
+        <div *ngIf="weatherInfo.coord">
+          Coordinates: {{weatherInfo.coord.lon}}, {{weatherInfo.coord.lat}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="weatherInfo.main">
+      <ion-col size="12" class="message" [offset]="0" [ngClass]="{'my-message':weatherInfo,'other-message':weatherInfo}">
+        <div style="font-size: 20px; text-align: center;">
+          Weather details
+        </div> 
+        <br>
+        <div *ngIf="weatherInfo.main.temp">
+          Temperature: {{kelvin}} deg celcius
+        </div>
+        <div *ngIf="weatherInfo.main.pressure">
+          Pressure: {{weatherInfo.main.pressure}} mmHg
+        </div>
+        <div *ngIf="weatherInfo.main.humidity">
+          Humidity: {{weatherInfo.main.humidity}} %
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="weatherInfo.wind">
+      <ion-col size="12" class="message" [offset]="0" [ngClass]="{'my-message':weatherInfo,'other-message':weatherInfo}">
+        <div style="font-size: 20px; text-align: center;">
+          Wind details
+        </div> 
+        <br>
+        <div *ngIf="weatherInfo.wind.speed">
+          Speed: {{weatherInfo.wind.speed}} m/sec
+        </div>
+        <div *ngIf="weatherInfo.wind.deg">
+          Angle: {{weatherInfo.wind.deg}} deg
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

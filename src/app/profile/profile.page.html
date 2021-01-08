@@ -1,0 +1,120 @@
+<ion-menu side="end" content-id="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title color="light">Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle>
+      <ion-item>
+        <ion-icon color="dark" name="moon-outline" slot="start"></ion-icon>
+        <ion-label>Dark mode</ion-label>
+        <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
+      </ion-item>
+      <ion-item (click)="goToDiscover()">
+        <ion-icon color="dark" name="person-add-outline" slot="start"></ion-icon>
+        <ion-label>Discover people</ion-label>
+      </ion-item>
+      <ion-item (click)="goToSaved()">
+        <ion-icon color="dark" name="bookmark-outline" slot="start"></ion-icon>
+        <ion-label>Saved</ion-label>
+      </ion-item>
+      <ion-item (click)="goToAbout()">
+        <ion-icon color="dark" name="information-circle-outline" slot="start"></ion-icon>
+        <ion-label>About</ion-label>
+      </ion-item>
+      <ion-item (click)="goToWeather()">
+        <ion-icon color="dark" name="partly-sunny-outline" slot="start"></ion-icon>
+        <ion-label>Weather</ion-label>
+      </ion-item>
+      <ion-item (click)="goToFeedback()">
+        <ion-icon color="dark" name="newspaper-outline" slot="start"></ion-icon>
+        <ion-label>Feedback</ion-label>
+      </ion-item>
+      <ion-item (click)="logout()">
+        <ion-icon color="dark" name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+    <ion-fab horizontal="center" vertical="bottom" slot="fixed">
+      <ion-fab-button color="primary">
+        <ion-icon size="large" name="call"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button color="success" (click)="showAlert()">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="end">
+        <ion-fab-button color="tertiary" href="https://www.linkedin.com/in/harish-y-d-4330711b1">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="start">
+        <ion-fab-button color="danger" href="https://www.instagram.com/harish__1606/">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+<ion-header> 
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="light">Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <app-loading *ngIf="!userPosts"></app-loading>
+  <div id="profile-info" *ngIf="userPosts?.username">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="user-image">
+          <ion-avatar style="width: auto; height: 100%;">
+            <ion-img src="https://ucarecdn.com/{{userPosts.profilePic}}/-/scale_crop/200x200/center/"></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <h2 *ngIf="userPosts.posts">{{userPosts.posts.length}}</h2>
+          <h2 *ngIf="!userPosts.posts">0</h2>
+          Posts 
+        </ion-col>
+        <ion-col style="text-align: center;" (click)="goToFollowers()">
+          <h2>{{userPosts.followers.length}}</h2>
+          Followers
+        </ion-col>
+        <ion-col style="text-align: center;" (click)="goToFollowing()">
+          <h2>{{userPosts.following.length}}</h2>
+          Following
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h2>{{userPosts?.username}}</h2>
+          <p>{{userPosts?.bio}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button expand="block" fill="outline" color="primary" routerLink="/tabs/edit-profile">Edit Profile</ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item-divider></ion-item-divider>
+  </ion-list>
+  
+  <ion-grid *ngIf="userPosts">
+    <ion-row>
+      <ion-col *ngFor="let p of userPosts.posts" size="4">
+        <img (click)="goTo(p)" src="https://ucarecdn.com/{{p}}/-/scale_crop/200x200/center/">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+</div>

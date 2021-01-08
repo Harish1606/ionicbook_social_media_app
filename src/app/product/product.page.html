@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="5">
+          <ion-text color="light" class="text">
+              IonicKart
+          </ion-text>
+        </ion-col>
+        <ion-col size="4">
+        </ion-col>
+        <ion-col size="1">
+          <div (click)="goToSearch()">
+            <ion-icon class="icon" color="light" name="search-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="2" style="text-align: center;">
+          <div (click)="goToCart()">
+            <ion-icon class="icon" color="light" name="cart-outline"></ion-icon><ion-badge *ngIf="cart.length>0" color="danger">{{cart.length}}</ion-badge>              
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-segment>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" style="text-align: center;">
+          <div (click)="sortfunc()">
+            <ion-text color="dark" style="display: inline-block;vertical-align: middle;font-size: 18px;">SORT&nbsp;</ion-text>
+            <ion-icon class="icon1" name="filter-outline" color="dark"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="6" style="text-align: center;">
+          <div (click)="filterfunc()">
+            <ion-text color="dark" style="display: inline-block;vertical-align: middle;font-size: 18px;">FILTER&nbsp;</ion-text>
+            <ion-icon class="icon1" name="funnel-outline" color="dark"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-segment>
+  <ion-select #userList (ionChange)='setSort($event)' hidden="true" interface="action-sheet">
+    <ion-select-option *ngFor="let sort of sortTechniques" [value]="sort">{{sort}}</ion-select-option>
+  </ion-select>
+  <ion-select #userlist (ionChange)='setFilter($event)' hidden="true" interface="action-sheet" value="Default">
+    <ion-select-option *ngFor="let filter of filterTechniques" [value]="filter">{{filter}}</ion-select-option>
+  </ion-select>
+</ion-header>
+
+<ion-content>
+  <ion-slides [options]="sliderOptions" pager style="margin-top: 1.8rem;">
+    <ion-slide *ngFor="let slide of sliderImages">
+      <img [src]="slide+'.jpg'" alt="images">
+    </ion-slide>
+  </ion-slides>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let product of products" class="item-entry" detail (click)="goToProduct(product.uid)">
+            <ion-thumbnail slot="start">
+              <img src="https://ucarecdn.com/{{product.uid}}/-/scale_crop/200x200/center/">
+            </ion-thumbnail>
+            <ion-label>
+              <h3 class="item-name">{{product.name}}</h3>
+              <ion-text>
+                <p class="price">{{product.price | currency:"INR"}}</p>
+              </ion-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreData($event)" threshold="10px">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Loading more products...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

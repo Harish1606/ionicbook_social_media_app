@@ -1,0 +1,45 @@
+.message-input{
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 6px;
+    background: #fff;
+    resize: none;
+    margin-top: 0px;
+    --padding-start:8px;
+    color:black;
+}
+
+.message{
+    padding: 10px !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+    white-space: pre-wrap;
+}
+
+.my-message{
+    background-color: lightgrey;
+    color: black;
+}
+
+.other-message{
+    background-color:lightgrey;
+    color:black;
+}
+
+.time{
+    color:black;
+    float: right;
+    font-size: small;
+}
+
+.text{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+.time1{
+    color:var(--ion-color-dark);
+    float: right;
+    font-size: small;
+}

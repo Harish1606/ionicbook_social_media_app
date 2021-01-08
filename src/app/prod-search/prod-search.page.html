@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1" style="font-size: 30px; vertical-align: middle; display: inline-block; margin-top: 9px;">
+          <div (click)="goBack()">
+            <ion-icon color="light" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="11" style="vertical-align: middle; display: inline-block;">
+          <ion-searchbar #search (ionChange)="searchProducts($event)" placeholder="Search products"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="busy">
+    <ion-list>
+      <ion-item *ngFor="let product of searchedItem">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+          </h2>
+          <p><ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+    <div *ngIf="!busy">
+      <ion-list>
+        <ion-item *ngFor="let product of searchedItem" (click)="goTo(product.uid)">
+          <ion-thumbnail slot="start">
+            <img src="https://ucarecdn.com/{{product.uid}}/-/scale_crop/200x200/center/">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>
+              <b>{{product.name}}</b>
+            </h2>
+            <ion-text>
+              <p class="price">{{product.price | currency:"INR"}}</p>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+</ion-content>

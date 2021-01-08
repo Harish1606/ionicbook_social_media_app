@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;margin-top: 6px;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="1.5" style="text-align: center;">
+          <ion-avatar style="height: 40px; width: 40px;vertical-align: middle; display: inline-block;">
+            <img src="https://ucarecdn.com/{{o_user?.profilePic}}/-/scale_crop/200x200/center/">
+          </ion-avatar>    
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            {{o_user?.username}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-progress-bar [value]="v" color="success"></ion-progress-bar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="busy"></app-loading>
+  <div *ngIf="!busy">
+    <ion-img src="https://ucarecdn.com/{{status?.postid}}/-/preview/"></ion-img>
+  </div>
+</ion-content>

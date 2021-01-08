@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            Cart
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="products.length==0" class="center">
+    <ion-button shape="round" color="primary" fill="outline" (click)="search()"><ion-icon style="font-size: 25px;" name="search-outline"></ion-icon>Search products</ion-button>
+  </div>
+
+  <div *ngIf="busy && products.length>0">
+    <ion-list>
+      <ion-item *ngFor="let product of products">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <ion-thumbnail style="height: 45px; width: 45px;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>
+                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+              </ion-label>
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>
+                <ion-button expand="block" color="medium" fill="outline"><ion-skeleton-text animated></ion-skeleton-text></ion-button>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="!busy && products.length>0">
+    <ion-list>
+      <ion-item *ngFor="let product of products">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="2">
+              <ion-thumbnail style="height: 45px; width: 45px;" (click)="goToProduct(product.uid)">
+                <img src="https://ucarecdn.com/{{product.uid}}/-/scale_crop/200x200/center/">
+              </ion-thumbnail>
+            </ion-col>
+            <ion-col size="5">
+              <ion-label (click)="goToProduct(product.uid)">
+                <h2><b>{{product.name}}</b></h2>
+                <b class="price">{{product.price | currency:"INR"}}</b>
+              </ion-label>
+            </ion-col>
+            <ion-col size="5">
+              <ion-label>
+                <ion-button expand="block" color="primary" fill="outline" (click)="remove(product.uid)"><ion-icon name="trash-outline"></ion-icon>Remove</ion-button>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="!busy && products.length>0">
+  <ion-button color="primary" expand="block" fill="outline" (click)="goToCheckout()"><ion-icon name="bag-check-outline" style="font-size: 20px;"></ion-icon>&nbsp;Go To Checkout</ion-button>
+</ion-footer>

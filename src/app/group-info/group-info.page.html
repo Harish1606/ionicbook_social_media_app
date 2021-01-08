@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar [color]="selectedcolor">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;margin-top: 6px;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="1.5" style="text-align: center;">
+          <ion-avatar style="height: 40px; width: 40px;vertical-align: middle; display: inline-block;">
+            <img src="https://ucarecdn.com/{{profilePic}}/-/scale_crop/200x200/center/">
+          </ion-avatar>    
+        </ion-col>
+        <ion-col size="7" style="text-align: start;">
+          <ion-text color="light" class="text">
+            {{GroupName}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-loading *ngIf="busy"></app-loading>
+
+  <div *ngIf="!busy">
+    <input type="file" #fileBtn class="filebtn" (change)="uploadPic($event)">
+  
+    <div>
+      <ion-avatar style=" display: block; margin-left:auto;margin-right: auto; width: 50%; height: 100%;">
+        <ion-img (click)="updateProfilePic()" src="https://ucarecdn.com/{{profilePic}}/-/scale_crop/150x150/center/"></ion-img>
+      </ion-avatar>
+    </div>
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Enter group name to change</ion-label>
+            <ion-input [(ngModel)]="gname"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-button class="button" expand="block" [color]="selectedcolor" fill="outline" [disabled]="gname.trim().length==0" (click)="updateDetails()">Save</ion-button>  
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-list>
+    <ion-item style="text-align: center;">
+      <b>{{participants.length}} Participants</b>
+    </ion-item>
+    <ion-item *ngFor="let user of participants" (click)="goTo(user.uid)">
+      <ion-avatar slot="start">
+        <img src="https://ucarecdn.com/{{user.profilePic}}/-/scale_crop/200x200/center/">
+      </ion-avatar>
+      <ion-label>
+        <h2 *ngIf="user.uid==currentUid">
+          <b>You</b>
+        </h2>
+        <h2 *ngIf="user.uid!=currentUid">
+          <b>{{user.name}}</b>
+        </h2>
+        <p>{{user.bio}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button [color]="selectedcolor" expand="block" fill="outline"  (click)="selectUsers()"><ion-icon name="person-add-outline" style="font-size: 18px;"></ion-icon> Add member</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button [color]="selectedcolor" expand="block" fill="outline"  (click)="exit()"><ion-icon name="log-out-outline" style="font-size: 23px;"></ion-icon> Exit group</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-select #userList (ionChange)='add($event)' multiple="true" hidden="true">
+    <ion-select-option *ngFor="let u of noparticipants" [value]="u.uid">{{u.name}}</ion-select-option>
+  </ion-select>
+</ion-content>

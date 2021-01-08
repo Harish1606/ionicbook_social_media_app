@@ -1,0 +1,75 @@
+.message-input{
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 6px;
+    background: #fff;
+    resize: none;
+    margin-top: 0px;
+    --padding-start:8px;
+    color:black;
+}
+
+.message{
+    padding: 10px !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+    white-space: pre-wrap;
+}
+
+.my-message{
+    background:var(--ion-color-primary);
+    color: black;
+}
+
+.my-message1{
+    background:var(--ion-color-secondary);
+    color: black;
+}
+
+.my-message2{
+    background:var(--ion-color-tertiary);
+    color: black;
+}
+
+.my-message3{
+    background:var(--ion-color-success);
+    color: black;
+}
+
+.my-message4{
+    background:var(--ion-color-danger);
+    color: black;
+}
+
+.my-message5{
+    background:var(--ion-color-warning);
+    color: black;
+}
+
+.my-message6{
+    background:var(--ion-color-medium);
+    color: black;
+}
+
+.other-message{
+    background-color: lightgrey;
+    color:black;
+}
+
+.other{
+    background-color:lightsalmon;
+    color: black;
+}
+
+.time{
+    color:black;
+    float: right;
+    font-size: small;
+}
+
+.text{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 23px;
+    margin-top: 7px;
+}

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-text color="light">
+        <h3>IonicBook</h3>
+      </ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="busy"></app-loading>
+  <ion-row>
+    <ion-col style="text-align: center; margin-top: 30px;">
+    <ion-card>
+      <ion-card-header color="primary">
+        <ion-avatar style=" display: block; margin-left:auto;margin-right: auto; width: 30%; height: 60%;">
+          <img src="https://ucarecdn.com/{{loginImage}}/-/scale_crop/150x150/center/"><img>
+        </ion-avatar>
+      </ion-card-header>
+    <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">
+          Email
+        </ion-label>
+        <ion-input type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Username
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Password
+      </ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Confirm Password
+      </ion-label>
+      <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-text color="dark">
+    <h2>Already have an account? <a (click)="goToLogin()">Login</a></h2>
+  </ion-text>
+  <br>
+  <ion-button fill="outline" shape="round" color="primary" (click)="register()">Register</ion-button>
+</ion-card-content>
+</ion-card>
+</ion-col>
+</ion-row>
+</ion-content>

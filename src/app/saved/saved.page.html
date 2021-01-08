@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;">
+          <ion-text color="light" class="text">
+            Saved
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="busy"></app-loading>
+  <ion-grid *ngIf="save">
+    <ion-row>
+      <ion-col *ngFor="let p of save.saved" size="4">
+        <img (click)="goTo(p)" src="https://ucarecdn.com/{{p}}/-/scale_crop/200x200/center/">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

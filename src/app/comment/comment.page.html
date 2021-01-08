@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="3" style="text-align: center;">
+          <ion-text color="light" class="text">
+            Comments
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-loading *ngIf="busy"></app-loading>
+  <ion-list>
+    <ion-item>
+      <ion-avatar style="height: 40px; width: 40px;" slot="start" (click)="goToProfile(postInfo.uid)">
+        <img src="https://ucarecdn.com/{{postInfo?.profilePic}}/-/scale_crop/200x200/center/">
+      </ion-avatar>
+      <ion-label>
+        <h2 (click)="goToProfile(postInfo.uid)">
+          {{postInfo.username}}
+        </h2>
+        <p>
+          {{info.desc}}
+        </p>
+      </ion-label>
+      <div class="time1">
+        <br>{{info.date | date:'short'}}
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+  <ion-row *ngFor="let chat of comments">
+    <ion-col size="12" class="message" [offset]="0" [ngClass]="{'my-message':chat.uid==userid,'other-message':chat.uid!=userid}">
+      <ion-row>
+        <ion-col size="2">  
+          <ion-avatar style="height: 40px; width: 40px;">
+            <img src="https://ucarecdn.com/{{chat.profilePic}}/-/scale_crop/200x200/center/">
+          </ion-avatar>
+        </ion-col>
+        <ion-col style="margin-top: -10px;">
+          <a (click)="goToProfile(chat.uid)" style="color: black;"><h2>{{chat.name}}</h2></a>
+        </ion-col>
+      </ion-row>
+      <span>{{chat.msg}}</span>
+      <div class="time ion-text-right">
+        <br>{{chat.time | date:'short'}}
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea autoGrow="true" class="message-input" rows="1" maxLength="500" [(ngModel)]="comment" placeholder="Add a comment...">
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2" style="text-align: center;">
+        <ion-button fill="clear" expand="block" color="primary" [disabled]="comment.trim().length==0" class="msg-btn" (click)="send()">
+          post
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

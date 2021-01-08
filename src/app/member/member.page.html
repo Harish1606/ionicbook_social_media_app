@@ -1,0 +1,317 @@
+<ion-header>
+  <ion-toolbar [color]="selectedcolor">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div (click)="goBack()">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle; display: inline-block;margin-top: 6px;" name="arrow-back-outline"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="1.5" style="text-align: center;">
+          <ion-avatar style="height: 40px; width: 40px;vertical-align: middle; display: inline-block;">
+            <img src="https://ucarecdn.com/{{profilepic}}/-/scale_crop/200x200/center/">
+          </ion-avatar>    
+        </ion-col>
+        <ion-col size="6" style="text-align: start;">
+          <ion-text color="light" class="text">
+            {{groupName}}
+          </ion-text>
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-button (click)="changeTheme()" [disabled]="check" fill="clear">
+            <ion-icon color="light" slot="icon-only" style="font-size: 30px; vertical-align: middle;display: inline-block;margin-top: 6px;text-align: end;" name="color-palette-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button (click)="goToInfo()" fill="clear">
+            <ion-icon color="light" style="font-size: 30px; vertical-align: middle;display: inline-block;margin-top: 6px;text-align: end;" name="information-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-select #userlist (ionChange)='setTheme($event)' hidden="true" interface="action-sheet" [value]="selectedcolor">
+    <ion-select-option *ngFor="let c of colors" [value]="c">{{c}}</ion-select-option>
+  </ion-select>
+</ion-header>
+
+<ion-content *ngIf="selectedcolor=='primary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='secondary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message1':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message1':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='tertiary'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message2':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message2':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='success'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message3':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message3':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-content *ngIf="selectedcolor=='danger'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message4':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message4':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='warning'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message5':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message5':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="selectedcolor=='medium'">
+  <ion-grid>
+    <ion-row *ngFor="let chat of chats;let i=index">
+      <ion-col *ngIf="chat?.visible==false" style="text-align: center;">
+        <ion-chip outline color="dark">
+          <ion-label>{{chat.time | date:'short'}}</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid!=currentuid" (click)="goTo(chat.uid,chat.name)">
+          <ion-label><b>{{chat.name}}</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+        <ion-chip outline color="dark" *ngIf="chat.uid==currentuid">
+          <ion-label><b>You</b>{{chat.msg}}'{{groupName}}'</ion-label>
+        </ion-chip>
+      </ion-col>
+      <ion-col *ngIf="i%2==0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message6':chat.uid==currentuid,'other-message':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="i%2!=0 && chat?.visible==true" size="9" class="message" [offset]="chat.uid==currentuid?3:0" [ngClass]="{'my-message6':chat.uid==currentuid,'other':chat.uid!=currentuid}">
+        <div *ngIf="chat.uid!=currentuid"><b (click)="goTo(chat.uid,chat.name)">{{chat.name}}</b><br></div>
+        <span>{{chat.msg}}</span>
+        <div class="time ion-text-right">
+          <br>{{chat.time | date:'short'}}
+          <ion-icon *ngIf="chat.uid==currentuid" style="font-size: 25px; color:white" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-select #userList hidden="true" (ionChange)='setUser($event)'>
+        <ion-select-option [value]="t1">View profile</ion-select-option>
+        <ion-select-option [value]="t2">Message {{selectedName}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="9.5">
+        <ion-textarea autoGrow="true" class="message-input" rows="1" maxlength="500" [(ngModel)]="textMsg" placeholder="Type a message...">
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2.5" style="text-align: center;">
+        <ion-button expand="block" fill="clear" [color]="selectedcolor" [disabled]="textMsg.trim().length==0" class="msg-btn" (click)="send()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

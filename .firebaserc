@@ -1,0 +1,21 @@
+{
+  "targets": {
+    "harish-2k20": {
+      "hosting": {
+        "app": [
+          "harish-2k20"
+        ]
+      }
+    },
+    "ionicbook-2k20": {
+      "hosting": {
+        "app": [
+          "ionicbook-2k20"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ionicbook-2k20"
+  }
+}
